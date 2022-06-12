@@ -12,3 +12,5 @@ Lataa [Kuntarajat.kml](https://github.com/geoharo/Geokml). Asenna R (>= 4.2.0) j
 ```R
 shiny::runApp("app.R")
 ```
+
+![example](https://raw.githubusercontent.com/taturl/halki-kuntien/master//example.png)
