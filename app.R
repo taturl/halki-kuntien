@@ -11,12 +11,11 @@ library(sf)
 
 kuntarajat <- sf::st_read('Kuntarajat.kml')
 
-gen <- function(coords) {
+gen <- function(coords, line_start) {
   # Takes one line from kunta edge: start and end are coordinates
   # next to each other (coords is polygon). From this line,
   # takes 1-100 % (randomly) and returns that coordinate
 
-  line_start <- sample(nrow(coords), 1)
   line_end <- line_start %% nrow(coords) + 1
   
   perc <- (sample(100, 1)) / 100
@@ -68,8 +67,10 @@ server <- function(input, output, session) {
     
     coords <- kunta[1]@polygons[[1]]@Polygons[[1]]@coords
     
-    point1 = gen(coords)
-    point2 = gen(coords)
+    distinct_lines = sample(nrow(coords), 2)
+    
+    point1 = gen(coords, line_start = distinct_lines[1])
+    point2 = gen(coords, line_start = distinct_lines[2])
     
     title = paste(
       'Kunta:', kunta_name, '<br>',
